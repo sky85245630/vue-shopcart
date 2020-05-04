@@ -13,22 +13,7 @@
     <div class="col-md-4 zxc">asd</div>
     <div class="col-md-4">asd</div>
     </div>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+    <a href="#" @click.prevent="logout">登出</a>
   </div>
 </template>
 
@@ -37,6 +22,21 @@ export default {
   name: 'HelloWorld',
   props: {
     msg: String
+  },
+  methods:{
+    logout(){
+
+      const api = `https://vue-course-api.herokuapp.com/logout`; // 'http://localhost:3000/api/casper/products';
+      const vm = this;
+      // API 伺服器路徑
+      // 所申請的 APIPath
+      this.$http.post(api).then((response) => {
+        console.log(response.data);
+        if(response.data.success){
+          vm.$router.push('./login')
+        }
+      });
+    }
   }
 }
 </script>
