@@ -1,14 +1,28 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
     <router-view/>
   </div>
 </template>
 
+
+<script>
+export default {
+  name: 'App',
+  created() {
+    const api = `https://vue-course-api.herokuapp.com/api/louie/products`; // 'http://localhost:3000/api/casper/products';
+    // API 伺服器路徑
+    // 所申請的 APIPath
+    this.$http.get(api).then((response) => {
+      console.log(response.data);
+    });
+  },
+};
+</script>
 <style lang="scss">
+@import 'bootstrap/scss/bootstrap';
+.zxc{
+  color:blue
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
