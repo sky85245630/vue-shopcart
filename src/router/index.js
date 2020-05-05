@@ -29,6 +29,7 @@ Vue.use(VueRouter)
   {
     path: '/admin',
     name: 'Dashboard',
+    meta: { requiresAuth: true },
 
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
