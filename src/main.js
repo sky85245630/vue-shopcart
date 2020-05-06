@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import 'bootstrap'
+import 'jquery'
+import 'popper.js'
 
 import App from './App.vue'
 import router from './router'
