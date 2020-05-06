@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+// import Home from '../views/Home.vue'
 import Login from '../views/login.vue'
+import Products from '../views/products.vue'
 
 Vue.use(VueRouter)
 
@@ -10,12 +11,12 @@ Vue.use(VueRouter)
     path:'*',
     redirect:'login'
   },
-  {
-    path: '/',
-    name: 'Home',
-    component: Home,
-    meta: { requiresAuth: true }
-  },
+  // {
+  //   path: '/',
+  //   name: 'Home',
+  //   component: Home,
+  //   meta: { requiresAuth: true }
+  // },
   {
     path: '/login',
     name: 'Login',
@@ -29,12 +30,18 @@ Vue.use(VueRouter)
   {
     path: '/admin',
     name: 'Dashboard',
-    meta: { requiresAuth: true },
-
+    component: () => import('../views/dashboard.vue'),
+    children:[
+      {
+        path: 'products',
+        name: 'Products',
+        component: Products,
+        meta: { requiresAuth: true },
+      }
+    ],
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import('../views/dashboard.vue')
   }
 ]
 

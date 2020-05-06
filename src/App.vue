@@ -9,12 +9,7 @@
 export default {
   name: 'App',
   created() {
-    const api = `https://vue-course-api.herokuapp.com/api/louie/products`; // 'http://localhost:3000/api/casper/products';
-    // API 伺服器路徑
-    // 所申請的 APIPath
-    this.$http.get(api).then((response) => {
-      console.log(response.data);
-    });
+    
   },
 };
 </script>
