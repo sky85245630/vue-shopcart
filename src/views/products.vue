@@ -151,7 +151,8 @@
             >
               Close
             </button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-primary" 
+            @click="updateProduct">確認</button>
           </div>
         </div>
       </div>
@@ -185,6 +186,18 @@ export default {
       $('#productModal').modal('show');
     //   console.log($)
     },
+    updateProduct(){
+      const api = `https://vue-course-api.herokuapp.com/api/louie/admin/product`;
+      const vm = this;
+      // 'http://localhost:3000/api/casper/products';
+      // API 伺服器路徑
+      // 所申請的 APIPath
+      this.$http.post(api,{data : vm.tempProduct}).then(response => {
+        console.log(response.data);
+        console.log({data : vm.tempProduct})
+        console.log(vm.tempProduct)
+      });
+    }
   },
   created() {
     this.getProducts();
