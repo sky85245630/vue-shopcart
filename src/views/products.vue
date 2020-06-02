@@ -96,7 +96,7 @@
                     <i class="fas fa-spinner fa-spin"></i>
                   </label>
                   <input type="file" id="customFile" class="form-control"
-                    ref="files">
+                    ref="files" @change="uploadFile">
                 </div>
                 <img img="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=828346ed697837ce808cae68d3ddc3cf&auto=format&fit=crop&w=1350&q=80"
                   class="img-fluid" :src="tempProduct.imageUrl" alt="">
@@ -256,6 +256,26 @@ export default {
         $('#delProductModal').modal('hide');
         vm.isLoading = false;
         this.getProducts();
+      });
+    },
+    uploadFile() {
+      console.log(this);
+      const uploadedFile = this.$refs.files.files[0];
+      const vm = this;
+      const formData = new FormData();
+      formData.append('file-to-upload', uploadedFile);
+      const url = `https://vue-course-api.herokuapp.com/api/louie/admin/upload`;
+      this.$http.post(url, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      }).then((response) => {
+        console.log(response.data);
+        if (response.data.success) {
+          // vm.tempProduct.imageUrl = response.data.imageUrl;
+          // console.log(vm.tempProduct);
+          vm.$set(vm.tempProduct, 'imageUrl', response.data.imageUrl);
+        }
       });
     },
   },
