@@ -9,8 +9,17 @@
 export default {
   name: 'App',
   created() {
-    
+    // this.check();
   },
+  methods:{
+    //檢查用戶是否仍持續登入
+    // check() {
+    //   const api = `https://vue-course-api.herokuapp.com/api/user/check`;
+    //   this.$http.post(api).then(response => {
+    //     console.log(response.data);
+    //   });
+    // },
+  }
 };
 </script>
 <style lang="scss">

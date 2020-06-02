@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="text-right mt-4">
-      <button class="btn btn-primary" @click="openModal">
+      <button class="btn btn-primary" @click="openModal(true)">
         建立新的產品
       </button>
     </div>
@@ -31,7 +31,8 @@
             <span v-else>未啟用</span>
           </td>
           <td>
-            <button class="btn btn-outline-primary btn-sm">編輯</button>
+              <button class="btn btn-outline-primary btn-sm" @click="delete_item(item)">刪除</button>
+            <button class="btn btn-outline-primary btn-sm" @click="openModal(false,item)">編輯</button>
           </td>
         </tr>
       </tbody>
@@ -167,7 +168,8 @@ export default {
   data() {
     return {
       products: [],
-      tempProduct:{}
+      tempProduct:{},
+      isNew:false
     };
   },
   methods: {
@@ -182,21 +184,60 @@ export default {
         vm.products = response.data.products;
       });
     },
-    openModal() {
-      $('#productModal').modal('show');
+    openModal(isNew,item) {
     //   console.log($)
+      if(isNew){
+          this.tempProduct = {}
+          this.isNew = true
+      }else{
+          this.tempProduct = Object.assign({},item)
+          this.isNew = false
+      }
+      $('#productModal').modal('show');
+
     },
     updateProduct(){
-      const api = `https://vue-course-api.herokuapp.com/api/louie/admin/product`;
+      let api = `https://vue-course-api.herokuapp.com/api/louie/admin/product`;
+      let httpMethod = 'post'
       const vm = this;
       // 'http://localhost:3000/api/casper/products';
       // API 伺服器路徑
       // 所申請的 APIPath
-      this.$http.post(api,{data : vm.tempProduct}).then(response => {
+      if(!vm.isNew){
+          api = `https://vue-course-api.herokuapp.com/api/louie/admin/product/${vm.tempProduct.id}`
+          httpMethod = 'put'
+      }
+      this.$http[httpMethod](api,{data : vm.tempProduct}).then(response => {
         console.log(response.data);
         console.log({data : vm.tempProduct})
         console.log(vm.tempProduct)
+        if(response.data.success){
+            $('#productModal').modal('hide');
+            vm.getProducts();
+        }else{
+            vm.getProducts();
+            console.log('取得產品失敗')
+        }
       });
+    },
+    delete_item(item){
+        const vm = this;
+
+        let api = `https://vue-course-api.herokuapp.com/api/louie/admin/product/${vm.tempProduct.id}`;
+        console.log(api)
+        this.tempProduct = Object.assign({},item)
+        this.$http.delete(api).then(response => {
+            console.log(response.data);
+            if(response.data.success){
+                vm.getProducts();
+                console.log('刪除成功')
+            }else{
+                vm.getProducts();
+                console.log('刪除失敗')
+            }
+        });
+
+
     }
   },
   created() {

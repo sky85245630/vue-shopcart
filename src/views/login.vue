@@ -32,7 +32,7 @@ export default {
   },
   methods:{
     signin(){
-      const api = `https://vue-course-api.herokuapp.com/signin`; // 'http://localhost:3000/api/casper/products';
+      const api = `https://vue-course-api.herokuapp.com/admin/signin`; // 'http://localhost:3000/api/casper/products';
       const vm = this;
       // API 伺服器路徑
       // 所申請的 APIPath

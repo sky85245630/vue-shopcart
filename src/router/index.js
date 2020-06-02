@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 // import Home from '../views/Home.vue'
 import Login from '../views/login.vue'
 import Products from '../views/products.vue'
+import Loading from '../views/loading.vue'
+
 
 Vue.use(VueRouter)
 
@@ -21,6 +23,16 @@ Vue.use(VueRouter)
     path: '/login',
     name: 'Login',
     component: Login
+
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    // component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+  },
+  {
+    path: '/loading',
+    name: 'loading',
+    component: Loading
 
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
