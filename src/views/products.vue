@@ -1,5 +1,8 @@
 <template>
   <div>
+      <loading :active.sync="isLoading"></loading>
+      <loading :active.sync="uploadImg"></loading>
+
     <div class="text-right mt-4">
       <button class="btn btn-primary" @click="openModal(true)">
         建立新的產品
@@ -37,6 +40,14 @@
         </tr>
       </tbody>
     </table>
+    
+
+
+
+
+
+
+
     <!-- Modal -->
     <div class="modal fade" id="delProductModal" tabindex="-1" role="dialog"
       aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -192,8 +203,12 @@ export default {
     return {
       products: [],
       tempProduct:{},
-      isNew:false
+      isNew:false,
+      isLoading: false,
+      uploadImg:false
     };
+  },
+  components:{
   },
   methods: {
     getProducts() {
@@ -202,9 +217,11 @@ export default {
       // 'http://localhost:3000/api/casper/products';
       // API 伺服器路徑
       // 所申請的 APIPath
+      this.isLoading = true;
       this.$http.get(api).then(response => {
         console.log(response.data);
         vm.products = response.data.products;
+        this.isLoading = false;
       });
     },
     openModal(isNew,item) {
@@ -264,6 +281,7 @@ export default {
       const vm = this;
       const formData = new FormData();
       formData.append('file-to-upload', uploadedFile);
+      this.uploadImg = true;
       const url = `https://vue-course-api.herokuapp.com/api/louie/admin/upload`;
       this.$http.post(url, formData, {
         headers: {
@@ -275,12 +293,17 @@ export default {
           // vm.tempProduct.imageUrl = response.data.imageUrl;
           // console.log(vm.tempProduct);
           vm.$set(vm.tempProduct, 'imageUrl', response.data.imageUrl);
+          this.uploadImg = false;
+          
+        }else {
+          this.$bus.$emit('messsage:push', response.data.message, 'danger');
         }
       });
     },
   },
   created() {
     this.getProducts();
+    this.$bus.$emit('messsage:push','一段訊息','success');
   }
 };
 </script>

@@ -4,6 +4,9 @@ import VueAxios from 'vue-axios'
 import 'bootstrap'
 import 'jquery'
 import 'popper.js'
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
+import './bus';
 
 import App from './App.vue'
 import router from './router'
@@ -11,7 +14,7 @@ import router from './router'
 Vue.config.productionTip = false
 Vue.use(VueAxios, axios)
 axios.defaults.withCredentials = true
-
+Vue.component('loading',Loading)
 
 new Vue({
   router,
