@@ -7,6 +7,7 @@ import 'popper.js'
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import './bus';
+import currencyFilter from './filters/currency';
 
 import App from './App.vue'
 import router from './router'
@@ -15,6 +16,7 @@ Vue.config.productionTip = false
 Vue.use(VueAxios, axios)
 axios.defaults.withCredentials = true
 Vue.component('loading',Loading)
+Vue.filter('currency',currencyFilter)
 
 new Vue({
   router,
