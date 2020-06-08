@@ -8,6 +8,7 @@ import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import './bus';
 import currencyFilter from './filters/currency';
+// import dateFilter from './filters/date';
 
 import App from './App.vue'
 import router from './router'
@@ -16,7 +17,8 @@ Vue.config.productionTip = false
 Vue.use(VueAxios, axios)
 axios.defaults.withCredentials = true
 Vue.component('loading',Loading)
-Vue.filter('currency',currencyFilter)
+Vue.filter('currency', currencyFilter);
+// Vue.filter('date', dateFilter);
 
 new Vue({
   router,

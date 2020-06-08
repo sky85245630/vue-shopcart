@@ -42,28 +42,7 @@
     </table>
 
 
-    <nav aria-label="Page navigation example">
-      <ul class="pagination">
-        <li class="page-item" :class="{'disabled': !pagination.has_pre }">
-          <a class="page-link" href="#" aria-label="Previous"
-            @click.prevent="getProducts(pagination.current_page - 1)">
-            <span aria-hidden="true">&laquo;</span>
-            <span class="sr-only">Previous</span>
-          </a>
-        </li>
-        <li class="page-item" v-for="page in pagination.total_pages" :key="page"
-          :class="{'active': pagination.current_page === page}">
-          <a class="page-link" href="#" @click.prevent="getProducts(page)">{{ page }}</a>
-        </li>
-        <li class="page-item" :class="{'disabled': !pagination.has_next }">
-          <a class="page-link" href="#" aria-label="Next"
-            @click.prevent="getProducts(pagination.current_page + 1)">
-            <span aria-hidden="true">&raquo;</span>
-            <span class="sr-only">Next</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
+   <Pagination :pages="pagination" @emitPages="getProducts"></Pagination>
 
 
 
@@ -219,6 +198,7 @@
 
 <script>
 import $ from 'jquery';
+import Pagination from '@/components/Pagination';
 
 export default {
   data() {
@@ -232,6 +212,7 @@ export default {
     };
   },
   components:{
+      Pagination
   },
   methods: {
     getProducts(page = 1) {
@@ -243,9 +224,11 @@ export default {
       this.isLoading = true;
       this.$http.get(api).then(response => {
         console.log(response.data);
-        vm.products = response.data.products;
-        this.isLoading = false;
-        vm.pagination = response.data.pagination;
+        if (response.data.success) {
+          vm.isLoading = false;
+          vm.products = response.data.products;
+          vm.pagination = response.data.pagination;
+        }
       });
     },
     openModal(isNew,item) {
