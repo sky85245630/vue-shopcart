@@ -228,6 +228,8 @@ export default {
           vm.isLoading = false;
           vm.products = response.data.products;
           vm.pagination = response.data.pagination;
+        }else{
+          vm.$router.push('login');
         }
       });
     },

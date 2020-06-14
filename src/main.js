@@ -8,6 +8,8 @@ import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import './bus';
 import currencyFilter from './filters/currency';
+import VeeValidate from 'vee-validate';
+import zhTWValidate from 'vee-validate/dist/locale/zh_TW';
 // import dateFilter from './filters/date';
 
 import App from './App.vue'
@@ -18,6 +20,8 @@ Vue.use(VueAxios, axios)
 axios.defaults.withCredentials = true
 Vue.component('loading',Loading)
 Vue.filter('currency', currencyFilter);
+VeeValidate.Validator.localize('zh_TW', zhTWValidate);
+Vue.use(VeeValidate);
 // Vue.filter('date', dateFilter);
 
 new Vue({
