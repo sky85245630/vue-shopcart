@@ -79,6 +79,11 @@ Vue.use(VueRouter)
         name: 'CustomerOrder',
         component: CustomerOrder,
       },
+      {
+        path: 'customer_checkout/:orderId',
+        name: 'CustomerCheckout',
+        component: () => import('@/components/pages/CustomerCheckout'),
+      },
     ],
   },
   
